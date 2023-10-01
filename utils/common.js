@@ -1,5 +1,7 @@
-exports.getOMDBCall = (page,query)=>{
-    return `https://www.omdbapi.com/?s=${query}&apikey=44ebd823&page=${page}`
+const { config } = require('./config');
+
+exports.getOMDBCall = (page,query)=>{  
+  return `${config.OMDB.OMDB_URI}?s=${query}&apikey=${config.OMDB.OMDB_API_KEY}&page=${page}`
 }
 
 exports.swaggerDefinitions =  {

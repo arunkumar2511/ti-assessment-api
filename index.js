@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser"),
 swaggerJsdoc = require("swagger-jsdoc"),
-swaggerUi = require("swagger-ui-express");
+swaggerUi = require("swagger-ui-express");  
 
 const router = require("./app/movies/movie-router.js");
 const { swaggerDefinitions } = require("./utils/common.js")
@@ -12,7 +12,10 @@ const options = {
     definition : swaggerDefinitions,
     apis: ["./app/movies/movie-router.js"],
 };
-  
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+app.use(bodyParser.json())  
 const specs = swaggerJsdoc(options);
 app.use(
 "/api-docs",
