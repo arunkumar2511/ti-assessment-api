@@ -55,4 +55,16 @@ describe('Add/Remove Movies To Favourite',()=>{
             expect(err.response.status).toBe(400) 
         })
     })
+
+    test('remove non existing favourite movie',async()=>{
+        const res = await axios.post(`${config.BASE_URL}/favourite`,{
+            "action":"remove",
+            "imdbId":"fdsfsd"
+        }).catch(err =>{
+            expect(err.response.status).toBe(500)
+            expect(err.response.data.error.message).toBe("no favourite found!!!")
+            console.log(err.response) 
+        })
+        console.log("res",res)
+    })
 })

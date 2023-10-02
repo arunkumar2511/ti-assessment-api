@@ -8,6 +8,7 @@ const database = require("../../utils/database.json");
 exports.movieSearch = async(req,res,next)=>{
     try {
         const {page,q} = req.query;
+        /* to get omdb api url */
         const url = getOMDBCall(page,q) 
         const {data} = await axios.get(url) 
         return res.status(200).json({data})
@@ -24,9 +25,11 @@ exports.addRemoveFav = async(req,res,next)=>{
     try {
         const data = database;
         const {action,imdbId} = req.body;
+        /* get users ip to ensure user level favourites list */
         const userIp = req.socket.remoteAddress
         const dataIndex = data.filter((el)=>{ if(el.imdbId == imdbId && el.userIp == userIp) return el});  
         if(action == "add"){
+            /* Checking whether the same movie is added in fav list */
             if(dataIndex.length){
                 throw new Error("favourite already added!!!")
             }else{

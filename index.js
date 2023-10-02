@@ -22,7 +22,7 @@ app.use(
 swaggerUi.serve,
 swaggerUi.setup(specs,{explorer:true})
 );
-  
+// TODO version should be included in route like /v1
 app.use('/api/movies',router);
 app.listen(port,()=>{
     console.log(`app started listening at ${port}`)
