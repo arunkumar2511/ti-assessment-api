@@ -42,8 +42,7 @@ exports.addRemoveFav = async(req,res,next)=>{
         }else{
             if(!dataIndex){
                 throw new Error("no favourite found!!!") 
-            }else{
-                console.log("dataIndex",dataIndex)
+            }else{ 
                 var removeIndex = data.indexOf(dataIndex)
                 data.splice(removeIndex,1)
             }
