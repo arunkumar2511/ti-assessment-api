@@ -27,10 +27,10 @@ exports.addRemoveFav = async(req,res,next)=>{
         const {action,imdbId} = req.body;
         /* get users ip to ensure user level favourites list */
         const userIp = req.socket.remoteAddress
-        const dataIndex = data.filter((el)=>{ if(el.imdbId == imdbId && el.userIp == userIp) return el});  
+        const dataIndex = data.find((el)=>{ if(el.imdbId == imdbId && el.userIp == userIp) return el});  
         if(action == "add"){
             /* Checking whether the same movie is added in fav list */
-            if(dataIndex.length){
+            if(dataIndex){
                 throw new Error("favourite already added!!!")
             }else{
                 data.push({
@@ -40,10 +40,12 @@ exports.addRemoveFav = async(req,res,next)=>{
                 })
             }
         }else{
-            if(!dataIndex.length){
+            if(!dataIndex){
                 throw new Error("no favourite found!!!") 
             }else{
-                data.splice(dataIndex,1)
+                console.log("dataIndex",dataIndex)
+                var removeIndex = data.indexOf(dataIndex)
+                data.splice(removeIndex,1)
             }
         }
         const dbPath = path.join(__dirname,'../../utils/database.json')
